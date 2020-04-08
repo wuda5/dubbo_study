@@ -1,0 +1,6 @@
+red = com.luban.dubbo_spi.impl.RedCar
+black = com.luban.dubbo_spi.impl.BlackCar
+benz = com.luban.dubbo_spi.impl.BenzCar
+com.luban.dubbo_spi.impl.AdaptiveCar
+com.luban.dubbo_spi.impl.CarWrapper
+com.luban.dubbo_spi.impl.Car2Wrapper

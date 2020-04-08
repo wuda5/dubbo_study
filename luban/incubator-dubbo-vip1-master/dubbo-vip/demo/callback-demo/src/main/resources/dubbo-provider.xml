@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="xml-demo-provider"/>
+
+    <!--<dubbo:registry address="zookeeper://127.0.0.1:2181" />-->
+    <!--<dubbo:registry address="redis://127.0.0.1:6379" />-->
+
+    <!--不允许进行服务注册，通常在开发阶段和直连提供者一起使用-->
+    <!--<dubbo:registry address="10.20.153.10:9090" register="false" />-->
+
+    <!--不允许进行服务订阅-->
+    <!--<dubbo:registry id="qdRegistry" address="10.20.141.150:9090" subscribe="false" />-->
+
+    <!--静态服务，非动态服务，服务提供者初次注册时为禁用状态，需人工启用。断线时，将不会被自动删除，需人工禁用。-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" dynamic="false" />
+
+    <bean id="helloService" class="com.luban.callback_demo.provider.impl.HelloServiceImpl"/>
+
+    <dubbo:service interface="com.luban.callback_demo.api.HelloService" ref="helloService">
+        <dubbo:method name="sayHello">
+            <dubbo:argument index="1" callback="true" />
+            <!--也可以通过指定类型的方式-->
+            <!--<dubbo:argument type="com.demo.CallbackListener" callback="true" />-->
+        </dubbo:method>
+    </dubbo:service>
+
+
+</beans>

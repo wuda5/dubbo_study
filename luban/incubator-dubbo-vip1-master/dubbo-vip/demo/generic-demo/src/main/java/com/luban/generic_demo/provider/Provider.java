@@ -1,0 +1,37 @@
+package com.luban.generic_demo.provider;
+
+import com.luban.generic_demo.api.HelloService;
+import com.luban.generic_demo.provider.impl.HelloServiceImpl;
+import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.RegistryConfig;
+import org.apache.dubbo.config.ServiceConfig;
+import org.apache.dubbo.rpc.service.GenericService;
+
+import java.io.IOException;
+
+/**
+ * *************书山有路勤为径***************
+ * 鲁班学院
+ * 往期资料加木兰老师  QQ: 2746251334
+ * VIP课程加安其拉老师 QQ: 3164703201
+ * 讲师：周瑜老师
+ * *************学海无涯苦作舟***************
+ */
+public class Provider {
+
+    public static void main(String[] args) throws IOException {
+        GenericService genericService = new HelloServiceImpl();
+
+        // 一个泛化的服务实现了这个接口，
+        ServiceConfig<GenericService> config = new ServiceConfig<>();
+        config.setInterface(HelloService.class);
+        config.setRef(genericService);
+        config.setApplication(new ApplicationConfig("generic-demo-provider"));
+        config.setRegistry(new RegistryConfig("127.0.0.1:2181", "zookeeper"));
+
+
+        config.export();
+
+        System.in.read();
+    }
+}
